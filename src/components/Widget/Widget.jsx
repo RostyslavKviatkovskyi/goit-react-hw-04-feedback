@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Statistics } from '../Statistics/Statistics';
+import { FeedbackOptions } from '../FeedbackOptions/FeedbackOptions';
+import { Section } from '../Section/Section';
+import { Wrapper } from '../Widget/WidgetStyled';
 
 class Widget extends Component {
   state = {
@@ -44,36 +47,30 @@ class Widget extends Component {
     if (!total) {
       return 0;
     }
-    return Math.round((good / total) * 100) + '%';
+    return Math.round((good / total) * 100);
   }
 
   render() {
     return (
-      <div>
-        <h2>Please, leave a feedback</h2>
-        <button type="button" onClick={this.addGoodRate}>
-          Good
-        </button>
-        <button type="button" onClick={this.addNeutralRate}>
-          Neutral
-        </button>
-        <button type="button" onClick={this.addBadRate}>
-          Bad
-        </button>
-        {/* <h2>Statistics</h2>
-        <p>Good: {this.state.good}</p>
-        <p>Neutral: {this.state.neutral}</p>
-        <p>Bad: {this.state.bad}</p>
-        <p>Total: {this.countTotalFeedback()}</p>
-        <p>Positive feedback: {this.countPositiveFeedbackPercentage()}</p> */}
-        <Statistics
-          good={this.state.good}
-          neutral={this.state.neutral}
-          bad={this.state.bad}
-          total={this.countTotalFeedback}
-          positivePercentage={this.countPositiveFeedbackPercentage}
-        />
-      </div>
+      <Wrapper>
+        <Section title="Please, leave a feedback">
+          <FeedbackOptions
+            onGood={this.addGoodRate}
+            onNeutral={this.addNeutralRate}
+            onBad={this.addBadRate}
+          />
+        </Section>
+
+        <Section title="Statistics">
+          <Statistics
+            good={this.state.good}
+            neutral={this.state.neutral}
+            bad={this.state.bad}
+            total={this.countTotalFeedback()}
+            positivePercentage={this.countPositiveFeedbackPercentage()}
+          />
+        </Section>
+      </Wrapper>
     );
   }
 }
