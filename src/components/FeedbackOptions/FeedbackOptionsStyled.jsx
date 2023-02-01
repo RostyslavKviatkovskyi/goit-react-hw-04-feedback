@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   gap: 16px;
 `;
 
-export const Button = styled.div`
+export const Button = styled.button`
   width: 50px;
   height: 24px;
   border-radius: 4px;

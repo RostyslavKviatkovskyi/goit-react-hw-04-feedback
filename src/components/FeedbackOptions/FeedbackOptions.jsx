@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Wrapper, Button } from '../FeedbackOptions/FeedbackOptionsStyled';
 
-export const FeedbackOptions = ({ onGood, onNeutral, onBad }) => {
+export const FeedbackOptions = ({ options, addRate }) => {
   return (
     <Wrapper>
-      <Button type="button" onClick={onGood}>
+      {/* <Button type="button" onClick={onGood}>
         Good
       </Button>
       <Button type="button" onClick={onNeutral}>
@@ -13,7 +13,14 @@ export const FeedbackOptions = ({ onGood, onNeutral, onBad }) => {
       </Button>
       <Button type="button" onClick={onBad}>
         Bad
-      </Button>
+      </Button> */}
+      {options.map((element, index) => {
+        return (
+          <Button key={index} name={element} onClick={addRate}>
+            {element}
+          </Button>
+        );
+      })}
     </Wrapper>
   );
 };

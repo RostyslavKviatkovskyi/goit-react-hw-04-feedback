@@ -11,28 +11,34 @@ class Widget extends Component {
     bad: 0,
   };
 
-  addGoodRate = () => {
-    this.setState(prevState => {
-      return {
-        good: prevState.good + 1,
-      };
-    });
-  };
+  // addGoodRate = () => {
+  //   this.setState(prevState => {
+  //     return {
+  //       good: prevState.good + 1,
+  //     };
+  //   });
+  // };
 
-  addNeutralRate = () => {
-    this.setState(prevState => {
-      return {
-        neutral: prevState.neutral + 1,
-      };
-    });
-  };
+  // addNeutralRate = () => {
+  //   this.setState(prevState => {
+  //     return {
+  //       neutral: prevState.neutral + 1,
+  //     };
+  //   });
+  // };
 
-  addBadRate = () => {
-    this.setState(prevState => {
-      return {
-        bad: prevState.bad + 1,
-      };
-    });
+  // addBadRate = () => {
+  //   this.setState(prevState => {
+  //     return {
+  //       bad: prevState.bad + 1,
+  //     };
+  //   });
+  // };
+
+  addRate = e => {
+    this.setState(prevState => ({
+      [e.target.name]: prevState[e.target.name] + 1,
+    }));
   };
 
   countTotalFeedback() {
@@ -55,9 +61,11 @@ class Widget extends Component {
       <Wrapper>
         <Section title="Please, leave a feedback">
           <FeedbackOptions
-            onGood={this.addGoodRate}
-            onNeutral={this.addNeutralRate}
-            onBad={this.addBadRate}
+            // onGood={this.addGoodRate}
+            // onNeutral={this.addNeutralRate}
+            // onBad={this.addBadRate}
+            options={Object.keys(this.state)}
+            addRate={this.addRate}
           />
         </Section>
 
