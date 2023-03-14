@@ -1,86 +1,65 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import { Statistics } from '../Statistics/Statistics';
 import { FeedbackOptions } from '../FeedbackOptions/FeedbackOptions';
 import { Section } from '../Section/Section';
 import { Wrapper } from '../Widget/WidgetStyled';
 
-class Widget extends Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
+export default function Widget() {
+  const [good, setGood] = useState(0);
+  const [bad, setBad] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+
+  const addRate = e => {
+    const { name } = e.target;
+    switch (name) {
+      case 'good':
+        setGood(prevState => prevState + 1);
+        break;
+
+      case 'bad':
+        setBad(prevState => prevState + 1);
+        break;
+
+      case 'neutral':
+        setNeutral(prevState => prevState + 1);
+        break;
+
+      default:
+        return;
+    }
   };
 
-  // addGoodRate = () => {
-  //   this.setState(prevState => {
-  //     return {
-  //       good: prevState.good + 1,
-  //     };
-  //   });
-  // };
-
-  // addNeutralRate = () => {
-  //   this.setState(prevState => {
-  //     return {
-  //       neutral: prevState.neutral + 1,
-  //     };
-  //   });
-  // };
-
-  // addBadRate = () => {
-  //   this.setState(prevState => {
-  //     return {
-  //       bad: prevState.bad + 1,
-  //     };
-  //   });
-  // };
-
-  addRate = e => {
-    this.setState(prevState => ({
-      [e.target.name]: prevState[e.target.name] + 1,
-    }));
-  };
-
-  countTotalFeedback() {
-    const { good, neutral, bad } = this.state;
+  const countTotalFeedback = () => {
     return good + neutral + bad;
-  }
+  };
 
-  countPositiveFeedbackPercentage() {
-    const { good, neutral, bad } = this.state;
+  const countPositiveFeedbackPercentage = () => {
     const total = good + neutral + bad;
 
     if (!total) {
       return 0;
     }
     return Math.round((good / total) * 100);
-  }
+  };
 
-  render() {
-    return (
-      <Wrapper>
-        <Section title="Please, leave a feedback">
-          <FeedbackOptions
-            // onGood={this.addGoodRate}
-            // onNeutral={this.addNeutralRate}
-            // onBad={this.addBadRate}
-            options={Object.keys(this.state)}
-            addRate={this.addRate}
-          />
-        </Section>
+  return (
+    <Wrapper>
+      <Section title="Please, leave a feedback">
+        <FeedbackOptions
+          options={['good', 'bad', 'neutral']}
+          addRate={addRate}
+        />
+      </Section>
 
-        <Section title="Statistics">
-          <Statistics
-            good={this.state.good}
-            neutral={this.state.neutral}
-            bad={this.state.bad}
-            total={this.countTotalFeedback()}
-            positivePercentage={this.countPositiveFeedbackPercentage()}
-          />
-        </Section>
-      </Wrapper>
-    );
-  }
+      <Section title="Statistics">
+        <Statistics
+          good={good}
+          neutral={neutral}
+          bad={bad}
+          total={countTotalFeedback()}
+          positivePercentage={countPositiveFeedbackPercentage()}
+        />
+      </Section>
+    </Wrapper>
+  );
 }
-
-export default Widget;
