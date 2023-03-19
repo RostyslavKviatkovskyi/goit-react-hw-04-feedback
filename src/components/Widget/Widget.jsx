@@ -42,6 +42,8 @@ export default function Widget() {
     return Math.round((good / total) * 100);
   };
 
+  const total = good + neutral + bad;
+
   return (
     <Wrapper>
       <Section title="Please, leave a feedback">
@@ -52,13 +54,25 @@ export default function Widget() {
       </Section>
 
       <Section title="Statistics">
-        <Statistics
+        {total ? (
+          <Statistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={countTotalFeedback()}
+            positivePercentage={countPositiveFeedbackPercentage()}
+          />
+        ) : (
+          <div>There is no feedback</div>
+        )}
+
+        {/* <Statistics
           good={good}
           neutral={neutral}
           bad={bad}
           total={countTotalFeedback()}
           positivePercentage={countPositiveFeedbackPercentage()}
-        />
+        /> */}
       </Section>
     </Wrapper>
   );

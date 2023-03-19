@@ -8,9 +8,9 @@ export const Statistics = ({
   total,
   positivePercentage,
 }) => {
-  if (total === 0) {
-    return <div>There is no feedback</div>;
-  }
+  // if (total === 0) {
+  //   return <div>There is no feedback</div>;
+  // }
   return (
     <div>
       <p>Good: {good}</p>
